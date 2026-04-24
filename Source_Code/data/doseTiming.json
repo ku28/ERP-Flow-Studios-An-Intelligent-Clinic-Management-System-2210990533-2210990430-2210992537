@@ -1,0 +1,58 @@
+[
+    {
+        "value": "",
+        "label": "Timing"
+    },
+    {
+        "value": "TDS",
+        "label": "TDS"
+    },
+    {
+        "value": "BD",
+        "label": "BD"
+    },
+    {
+        "value": "HRLY",
+        "label": "HRLY"
+    },
+    {
+        "value": "OD",
+        "label": "OD"
+    },
+    {
+        "value": "QID",
+        "label": "QID"
+    },
+    {
+        "value": "EOD",
+        "label": "EOD"
+    },
+    {
+        "value": "EVERY 2 MNTS",
+        "label": "EVERY 2 MNTS"
+    },
+    {
+        "value": "1/2 HRLY",
+        "label": "1/2 HRLY"
+    },
+    {
+        "value": "2 A WEEK",
+        "label": "2 A WEEK"
+    },
+    {
+        "value": "WEEKLY",
+        "label": "WEEKLY"
+    },
+    {
+        "value": "FORTNIGHTLY",
+        "label": "FORTNIGHTLY"
+    },
+    {
+        "value": "ONCE ONLY",
+        "label": "ONCE ONLY"
+    },
+    {
+        "value": "STAT",
+        "label": "STAT"
+    }
+]

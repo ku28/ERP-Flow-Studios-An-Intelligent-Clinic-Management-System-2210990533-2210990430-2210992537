@@ -1,0 +1,26 @@
+[
+    {
+        "value": "",
+        "label": "Unit"
+    },
+    {
+        "value": "ML",
+        "label": "ML"
+    },
+    {
+        "value": "GM",
+        "label": "GM"
+    },
+    {
+        "value": "SPOONS",
+        "label": "SPOONS"
+    },
+    {
+        "value": "PCS",
+        "label": "PCS"
+    },
+    {
+        "value": "PUFFS",
+        "label": "PUFFS"
+    }
+]

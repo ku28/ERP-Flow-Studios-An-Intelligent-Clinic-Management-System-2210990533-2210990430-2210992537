@@ -1,0 +1,2 @@
+ALTER TABLE "Treatment"
+ADD COLUMN IF NOT EXISTS "keywords" JSONB;

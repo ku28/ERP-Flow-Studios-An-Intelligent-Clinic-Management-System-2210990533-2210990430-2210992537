@@ -1,0 +1,262 @@
+[
+    {
+        "value": "ABDOMEN WHOLE",
+        "label": "ABDOMEN WHOLE"
+    },
+    {
+        "value": "ABDOMEN/SPINE",
+        "label": "ABDOMEN/SPINE"
+    },
+    {
+        "value": "ANCKLES",
+        "label": "ANCKLES"
+    },
+    {
+        "value": "ANUS",
+        "label": "ANUS"
+    },
+    {
+        "value": "ARMS",
+        "label": "ARMS"
+    },
+    {
+        "value": "BACK OF THE EAR",
+        "label": "BACK OF THE EAR"
+    },
+    {
+        "value": "BODY",
+        "label": "BODY"
+    },
+    {
+        "value": "BONES",
+        "label": "BONES"
+    },
+    {
+        "value": "BREAST",
+        "label": "BREAST"
+    },
+    {
+        "value": "CENTRE ABDOMEN",
+        "label": "CENTRE ABDOMEN"
+    },
+    {
+        "value": "CHEEKS",
+        "label": "CHEEKS"
+    },
+    {
+        "value": "CHEST",
+        "label": "CHEST"
+    },
+    {
+        "value": "CHEST/BACK/SINUS",
+        "label": "CHEST/BACK/SINUS"
+    },
+    {
+        "value": "CHIN",
+        "label": "CHIN"
+    },
+    {
+        "value": "COCCYX",
+        "label": "COCCYX"
+    },
+    {
+        "value": "CORN",
+        "label": "CORN"
+    },
+    {
+        "value": "EARS",
+        "label": "EARS"
+    },
+    {
+        "value": "EFFECTED AREA",
+        "label": "EFFECTED AREA"
+    },
+    {
+        "value": "EYE LID/BLAPHER",
+        "label": "EYE LID/BLAPHER"
+    },
+    {
+        "value": "EYES",
+        "label": "EYES"
+    },
+    {
+        "value": "FACE",
+        "label": "FACE"
+    },
+    {
+        "value": "FINGERS",
+        "label": "FINGERS"
+    },
+    {
+        "value": "FOOT",
+        "label": "FOOT"
+    },
+    {
+        "value": "FORE HEAD",
+        "label": "FORE HEAD"
+    },
+    {
+        "value": "GROIN",
+        "label": "GROIN"
+    },
+    {
+        "value": "GUMS",
+        "label": "GUMS"
+    },
+    {
+        "value": "HAIR",
+        "label": "HAIR"
+    },
+    {
+        "value": "HANDS",
+        "label": "HANDS"
+    },
+    {
+        "value": "HEAD",
+        "label": "HEAD"
+    },
+    {
+        "value": "HEAL",
+        "label": "HEAL"
+    },
+    {
+        "value": "HEART",
+        "label": "HEART"
+    },
+    {
+        "value": "HYPOCHONDRIA",
+        "label": "HYPOCHONDRIA"
+    },
+    {
+        "value": "JOINTS",
+        "label": "JOINTS"
+    },
+    {
+        "value": "KNEE JOINT",
+        "label": "KNEE JOINT"
+    },
+    {
+        "value": "LEGS",
+        "label": "LEGS"
+    },
+    {
+        "value": "LIPS",
+        "label": "LIPS"
+    },
+    {
+        "value": "LOCAL",
+        "label": "LOCAL"
+    },
+    {
+        "value": "LOWER ABDOMEN",
+        "label": "LOWER ABDOMEN"
+    },
+    {
+        "value": "LOWER BACK",
+        "label": "LOWER BACK"
+    },
+    {
+        "value": "MOUTH",
+        "label": "MOUTH"
+    },
+    {
+        "value": "MUSCLES",
+        "label": "MUSCLES"
+    },
+    {
+        "value": "NAVAL",
+        "label": "NAVAL"
+    },
+    {
+        "value": "NECK",
+        "label": "NECK"
+    },
+    {
+        "value": "NOSE",
+        "label": "NOSE"
+    },
+    {
+        "value": "PAROTID",
+        "label": "PAROTID"
+    },
+    {
+        "value": "PELVIC",
+        "label": "PELVIC"
+    },
+    {
+        "value": "PENIS",
+        "label": "PENIS"
+    },
+    {
+        "value": "PPH",
+        "label": "PPH"
+    },
+    {
+        "value": "PROSTATE",
+        "label": "PROSTATE"
+    },
+    {
+        "value": "SCALP",
+        "label": "SCALP"
+    },
+    {
+        "value": "SINUS",
+        "label": "SINUS"
+    },
+    {
+        "value": "SKIN",
+        "label": "SKIN"
+    },
+    {
+        "value": "SOLAR PLEXUS",
+        "label": "SOLAR PLEXUS"
+    },
+    {
+        "value": "TESTES",
+        "label": "TESTES"
+    },
+    {
+        "value": "THROAT",
+        "label": "THROAT"
+    },
+    {
+        "value": "TOES",
+        "label": "TOES"
+    },
+    {
+        "value": "TONGUE",
+        "label": "TONGUE"
+    },
+    {
+        "value": "TONSILS",
+        "label": "TONSILS"
+    },
+    {
+        "value": "TOOTH",
+        "label": "TOOTH"
+    },
+    {
+        "value": "UPPER ABDOMEN",
+        "label": "UPPER ABDOMEN"
+    },
+    {
+        "value": "UPPER BACK",
+        "label": "UPPER BACK"
+    },
+    {
+        "value": "VAGINA",
+        "label": "VAGINA"
+    },
+    {
+        "value": "WHOLE SPINE",
+        "label": "WHOLE SPINE"
+    },
+    {
+        "value": "WOUND",
+        "label": "WOUND"
+    },
+    {
+        "value": "WRIST",
+        "label": "WRIST"
+    }
+]

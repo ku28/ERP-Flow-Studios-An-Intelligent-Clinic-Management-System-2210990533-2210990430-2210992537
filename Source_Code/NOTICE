@@ -1,0 +1,23 @@
+NOTICE
+
+ERP Flow Studios - An Intelligent Clinic Management System
+Copyright (c) 2026 ERP Flow Studios
+
+This product includes software developed by ERP Flow Studios.
+
+PROPRIETARY SOFTWARE NOTICE:
+This is proprietary software. Unauthorized copying, modification, distribution, 
+or use of this software is strictly prohibited and may result in legal action.
+
+For questions regarding licensing or usage permissions, please contact:
+erpflowstudios@gmail.com
+
+Third-Party Dependencies:
+This software uses various open-source libraries and frameworks, each governed by 
+their respective licenses. See package.json files in the respective directories 
+for a complete list of dependencies.
+
+PRIVACY NOTICE:
+This system handles sensitive healthcare data. All usage must comply with applicable 
+data protection regulations including HIPAA (if applicable), GDPR, and local privacy laws.
+

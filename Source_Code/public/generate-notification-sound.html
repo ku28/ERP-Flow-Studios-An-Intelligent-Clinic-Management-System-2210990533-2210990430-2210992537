@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Notification Sound Generator</title>
+</head>
+<body>
+    <h1>Generate Notification Sound</h1>
+    <p>Click the button to test and download a notification sound:</p>
+    <button onclick="playAndDownloadSound()">Play & Download Sound</button>
+    
+    <script>
+        function playAndDownloadSound() {
+            // Create audio context
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const sampleRate = audioContext.sampleRate;
+            const duration = 0.5; // 500ms
+            const numSamples = sampleRate * duration;
+            
+            // Create buffer
+            const audioBuffer = audioContext.createBuffer(1, numSamples, sampleRate);
+            const channelData = audioBuffer.getChannelData(0);
+            
+            // Generate two-tone notification sound
+            for (let i = 0; i < numSamples; i++) {
+                const t = i / sampleRate;
+                
+                // First tone (800 Hz) for first 250ms
+                if (t < 0.25) {
+                    channelData[i] = Math.sin(2 * Math.PI * 800 * t) * 0.3 * (1 - t / 0.25);
+                }
+                // Second tone (1000 Hz) for next 250ms
+                else {
+                    const t2 = t - 0.25;
+                    channelData[i] = Math.sin(2 * Math.PI * 1000 * t2) * 0.3 * (1 - t2 / 0.25);
+                }
+            }
+            
+            // Play the sound
+            const source = audioContext.createBufferSource();
+            source.buffer = audioBuffer;
+            source.connect(audioContext.destination);
+            source.start();
+            
+            // Convert to WAV and download
+            const wav = audioBufferToWav(audioBuffer);
+            const blob = new Blob([wav], { type: 'audio/wav' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'notification.wav';
+            a.click();
+            
+            console.log('Sound played and downloaded!');
+        }
+        
+        // Convert AudioBuffer to WAV format
+        function audioBufferToWav(buffer) {
+            const numChannels = buffer.numberOfChannels;
+            const sampleRate = buffer.sampleRate;
+            const format = 1; // PCM
+            const bitDepth = 16;
+            
+            const bytesPerSample = bitDepth / 8;
+            const blockAlign = numChannels * bytesPerSample;
+            
+            const data = [];
+            for (let i = 0; i < buffer.length; i++) {
+                for (let channel = 0; channel < numChannels; channel++) {
+                    const sample = Math.max(-1, Math.min(1, buffer.getChannelData(channel)[i]));
+                    data.push(sample < 0 ? sample * 0x8000 : sample * 0x7FFF);
+                }
+            }
+            
+            const dataLength = data.length * bytesPerSample;
+            const bufferLength = 44 + dataLength;
+            const arrayBuffer = new ArrayBuffer(bufferLength);
+            const view = new DataView(arrayBuffer);
+            
+            // WAV header
+            writeString(view, 0, 'RIFF');
+            view.setUint32(4, 36 + dataLength, true);
+            writeString(view, 8, 'WAVE');
+            writeString(view, 12, 'fmt ');
+            view.setUint32(16, 16, true);
+            view.setUint16(20, format, true);
+            view.setUint16(22, numChannels, true);
+            view.setUint32(24, sampleRate, true);
+            view.setUint32(28, sampleRate * blockAlign, true);
+            view.setUint16(32, blockAlign, true);
+            view.setUint16(34, bitDepth, true);
+            writeString(view, 36, 'data');
+            view.setUint32(40, dataLength, true);
+            
+            // Write samples
+            let offset = 44;
+            for (let i = 0; i < data.length; i++) {
+                view.setInt16(offset, data[i], true);
+                offset += 2;
+            }
+            
+            return arrayBuffer;
+        }
+        
+        function writeString(view, offset, string) {
+            for (let i = 0; i < string.length; i++) {
+                view.setUint8(offset + i, string.charCodeAt(i));
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+[
+    {
+        "value": "DRP",
+        "label": "DRP"
+    },
+    {
+        "value": "TSF",
+        "label": "TSF"
+    },
+    {
+        "value": "TAB",
+        "label": "TAB"
+    },
+    {
+        "value": "CAP",
+        "label": "CAP"
+    },
+    {
+        "value": "DRP/PAIR",
+        "label": "DRP/PAIR"
+    },
+    {
+        "value": "GLASS",
+        "label": "GLASS"
+    },
+    {
+        "value": "CUP",
+        "label": "CUP"
+    },
+    {
+        "value": "BTL",
+        "label": "BTL"
+    },
+    {
+        "value": "LID",
+        "label": "LID"
+    },
+    {
+        "value": "PUFF",
+        "label": "PUFF"
+    },
+    {
+        "value": "TABLE SF",
+        "label": "TABLE SF"
+    },
+    {
+        "value": "MUG",
+        "label": "MUG"
+    },
+    {
+        "value": "BKT",
+        "label": "BKT"
+    },
+    {
+        "value": "TUB",
+        "label": "TUB"
+    },
+    {
+        "value": "MFULL",
+        "label": "MFULL"
+    },
+    {
+        "value": "HFULL",
+        "label": "HFULL"
+    },
+    {
+        "value": "LYR",
+        "label": "LYR"
+    }
+]

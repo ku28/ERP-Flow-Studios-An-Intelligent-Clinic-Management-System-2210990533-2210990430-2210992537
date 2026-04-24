@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <title>ERP Flow Studios</title>
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            background: #000818;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        (async function bootstrap() {
+            const isHttp = window.location.protocol === 'http:' || window.location.protocol === 'https:';
+            if (!isHttp) {
+                // Running from bundled file assets (e.g. Capacitor fallback): never hand off to browser.
+                return;
+            }
+
+            const appUrl = new URL('/app', window.location.origin);
+
+            try {
+                const response = await fetch('/version.json', { cache: 'no-store' });
+                if (response.ok) {
+                    const manifest = await response.json();
+                    const androidVersion = manifest?.latestAndroidVersion;
+                    if (androidVersion) {
+                        appUrl.searchParams.set('androidVersion', String(androidVersion));
+                    }
+                }
+            } catch {
+                // Continue without version query if manifest is unavailable.
+            }
+
+            window.location.replace(appUrl.toString());
+        })();
+    </script>
+</body>
+
+</html>

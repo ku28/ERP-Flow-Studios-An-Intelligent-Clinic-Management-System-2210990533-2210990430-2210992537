@@ -1,0 +1,162 @@
+[
+    {
+        "value": "S1",
+        "label": "S1"
+    },
+    {
+        "value": "S2",
+        "label": "S2"
+    },
+    {
+        "value": "S3",
+        "label": "S3"
+    },
+    {
+        "value": "S5",
+        "label": "S5"
+    },
+    {
+        "value": "S6",
+        "label": "S6"
+    },
+    {
+        "value": "S10",
+        "label": "S10"
+    },
+    {
+        "value": "S11",
+        "label": "S11"
+    },
+    {
+        "value": "S12",
+        "label": "S12"
+    },
+    {
+        "value": "SLAS",
+        "label": "SLAS"
+    },
+    {
+        "value": "C1",
+        "label": "C1"
+    },
+    {
+        "value": "C2",
+        "label": "C2"
+    },
+    {
+        "value": "C3",
+        "label": "C3"
+    },
+    {
+        "value": "C4",
+        "label": "C4"
+    },
+    {
+        "value": "C5",
+        "label": "C5"
+    },
+    {
+        "value": "C6",
+        "label": "C6"
+    },
+    {
+        "value": "C10",
+        "label": "C10"
+    },
+    {
+        "value": "C13",
+        "label": "C13"
+    },
+    {
+        "value": "C15",
+        "label": "C15"
+    },
+    {
+        "value": "C17",
+        "label": "C17"
+    },
+    {
+        "value": "A1",
+        "label": "A1"
+    },
+    {
+        "value": "A2",
+        "label": "A2"
+    },
+    {
+        "value": "A3",
+        "label": "A3"
+    },
+    {
+        "value": "P1",
+        "label": "P1"
+    },
+    {
+        "value": "P2",
+        "label": "P2"
+    },
+    {
+        "value": "P3",
+        "label": "P3"
+    },
+    {
+        "value": "P4",
+        "label": "P4"
+    },
+    {
+        "value": "VER1",
+        "label": "VER1"
+    },
+    {
+        "value": "VER2",
+        "label": "VER2"
+    },
+    {
+        "value": "VEN1",
+        "label": "VEN1"
+    },
+    {
+        "value": "F1",
+        "label": "F1"
+    },
+    {
+        "value": "F2",
+        "label": "F2"
+    },
+    {
+        "value": "L1",
+        "label": "L1"
+    },
+    {
+        "value": "L2",
+        "label": "L2"
+    },
+    {
+        "value": "RE",
+        "label": "RE"
+    },
+    {
+        "value": "YE",
+        "label": "YE"
+    },
+    {
+        "value": "WE",
+        "label": "WE"
+    },
+    {
+        "value": "BE",
+        "label": "BE"
+    },
+    {
+        "value": "GE",
+        "label": "GE"
+    },
+    {
+        "value": "APP",
+        "label": "APP"
+    },
+    {
+        "value": "SYN",
+        "label": "SYN"
+    }
+]

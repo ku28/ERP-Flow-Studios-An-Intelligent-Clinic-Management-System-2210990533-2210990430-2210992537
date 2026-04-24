@@ -1,0 +1,28 @@
+{
+  "regions": ["sin1"],
+  "installCommand": "pnpm install --frozen-lockfile",
+  "buildCommand": "pnpm build",
+  "crons": [
+    {
+      "path": "/api/cron/cleanup-cloudinary",
+      "schedule": "0 2 * * *"
+    },
+    {
+      "path": "/api/cron/cleanup-tasks",
+      "schedule": "0 3 * * *"
+    },
+    {
+      "path": "/api/cron/reset-vision",
+      "schedule": "0 0 1 * *"
+    },
+    {
+      "path": "/api/cron/cleanup-inactive-clinics",
+      "schedule": "15 2 * * *"
+    }
+  ],
+  "functions": {
+    "pages/api/process-bill.ts": {
+      "maxDuration": 60
+    }
+  }
+}

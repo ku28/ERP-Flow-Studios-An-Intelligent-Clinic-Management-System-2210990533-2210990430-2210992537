@@ -1,0 +1,39 @@
+node_modules
+.next
+.env
+prisma/dev.db
+*.log
+tsconfig.tsbuildinfo
+.vscode
+
+# Code Signing - NEVER COMMIT THESE!
+*.keystore
+*.jks
+*.pfx
+*.p12
+*.cer
+*.crt
+*.key
+gradle-release.properties
+android/app/release/
+android/app/debug/
+
+# Electron build output
+dist
+build
+!build/
+build/*
+!build/installer.nsh
+*.exe
+*.dmg
+*.AppImage
+
+# Electron temp files
+.electron
+out
+
+# vision-key
+vision-key.json
+
+# Firebase service account key
+firebaseServicekey.json

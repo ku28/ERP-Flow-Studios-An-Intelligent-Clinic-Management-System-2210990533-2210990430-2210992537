@@ -1,0 +1,53 @@
+[
+  {
+    "clinicId": "cmmpxa8by0001k11ltq04ps99",
+    "clinicCode": "900000",
+    "clinicName": "ERP FLOW STUDIOS",
+    "adminEmail": "kushagrajuneja7@gmail.com",
+    "adminName": "ERP FLOW STUDIOS",
+    "requestedPlan": "pro",
+    "requestedCycle": "fiveYear",
+    "paymentMethod": "pay_to_owner",
+    "amount": 74999,
+    "couponCode": null,
+    "razorpayPaymentId": null,
+    "token": "5482e1933333b9bf138a3a300c76bd6471343d5b83ca6c3c",
+    "createdAt": "2026-03-25T09:27:16.800Z",
+    "status": "approved",
+    "decidedAt": "2026-03-25T09:27:55.052Z",
+    "decidedBy": "Super Admin",
+    "notes": null
+  },
+  {
+    "clinicId": "cmmpxa8by0001k11ltq04ps99",
+    "clinicCode": "900000",
+    "clinicName": "ERP FLOW STUDIOS",
+    "adminEmail": "kushagrajuneja7@gmail.com",
+    "adminName": "ERP FLOW STUDIOS",
+    "requestedPlan": "pro",
+    "requestedCycle": "fiveYear",
+    "paymentMethod": "pay_to_owner",
+    "amount": 74999,
+    "couponCode": null,
+    "razorpayPaymentId": null,
+    "token": "6f790185420aad49bae3149f6aa62363116e3bbfc62500d8",
+    "createdAt": "2026-03-25T09:25:29.004Z",
+    "status": "pending"
+  },
+  {
+    "clinicId": "cmmpxa8by0001k11ltq04ps99",
+    "clinicCode": "900000",
+    "clinicName": "ERP FLOW STUDIOS",
+    "adminEmail": "kushagrajuneja7@gmail.com",
+    "adminName": "ERP FLOW STUDIOS",
+    "requestedPlan": "pro",
+    "requestedCycle": "fiveYear",
+    "paymentMethod": "pay_to_owner",
+    "amount": 74999,
+    "couponCode": null,
+    "razorpayPaymentId": null,
+    "token": "bac8482a6c7b82d1f01f8f9d7ac7c091e6404f0a25778ad5",
+    "createdAt": "2026-03-25T09:17:26.513Z",
+    "status": "pending"
+  }
+]

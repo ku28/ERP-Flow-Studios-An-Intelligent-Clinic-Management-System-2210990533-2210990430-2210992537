@@ -1,0 +1,74 @@
+[
+    {
+        "value": "BLOOD",
+        "label": "BLOOD"
+    },
+    {
+        "value": "CIRCULATORY SYS",
+        "label": "CIRCULATORY SYS"
+    },
+    {
+        "value": "DIGESTIVE SYS",
+        "label": "DIGESTIVE SYS"
+    },
+    {
+        "value": "ENDOCRINE SYS",
+        "label": "ENDOCRINE SYS"
+    },
+    {
+        "value": "IMMUNE SYS",
+        "label": "IMMUNE SYS"
+    },
+    {
+        "value": "INTAGUMENTORY SYS",
+        "label": "INTAGUMENTORY SYS"
+    },
+    {
+        "value": "LYMPHATIC SYS",
+        "label": "LYMPHATIC SYS"
+    },
+    {
+        "value": "MUSCULAR SYS",
+        "label": "MUSCULAR SYS"
+    },
+    {
+        "value": "NERVOUS SYS",
+        "label": "NERVOUS SYS"
+    },
+    {
+        "value": "ORAL",
+        "label": "ORAL"
+    },
+    {
+        "value": "REPRODUCTIVE (F) SYS",
+        "label": "REPRODUCTIVE (F) SYS"
+    },
+    {
+        "value": "REPRODUCTIVE (M) SYS",
+        "label": "REPRODUCTIVE (M) SYS"
+    },
+    {
+        "value": "REPRODUCTIVE SYS",
+        "label": "REPRODUCTIVE SYS"
+    },
+    {
+        "value": "RESPIRATORY SYS",
+        "label": "RESPIRATORY SYS"
+    },
+    {
+        "value": "SENSORY SYS",
+        "label": "SENSORY SYS"
+    },
+    {
+        "value": "SKELATAL SYS",
+        "label": "SKELATAL SYS"
+    },
+    {
+        "value": "SYSTEM",
+        "label": "SYSTEM"
+    },
+    {
+        "value": "URINARY SYS",
+        "label": "URINARY SYS"
+    }
+]

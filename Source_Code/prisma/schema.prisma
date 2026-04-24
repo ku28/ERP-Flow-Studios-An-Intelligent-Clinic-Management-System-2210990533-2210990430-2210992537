@@ -1,0 +1,1018 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+}
+
+model Clinic {
+  id                       String          @id @default(cuid())
+  clinicId                 String          @unique // 6-digit clinic access code
+  name                     String
+  email                    String          @unique
+  address                  String?
+  city                     String?
+  state                    String?
+  iconUrl                  String?
+  prescriptionHeaderUrl    String?
+  prescriptionFooterUrl    String?
+  prescriptionSignatureUrl String?
+  prescriptionWatermarkUrl String?
+  themeGradient            String          @default("blue") // blue, purple, emerald, rose, teal
+  status                   String          @default("active")
+  subscriptionPlan         String          @default("basic") // basic, basic_ai_ocr, pro
+  subscriptionCycle        String          @default("monthly") // monthly, quarterly, annual, lifetime
+  subscriptionStatus       String          @default("active") // active, trial, expired, cancelled
+  subscriptionStart        DateTime?
+  subscriptionEnd          DateTime?
+  trialEndsAt              DateTime?
+  razorpayCustomerId       String?
+  razorpaySubscriptionId   String?
+  ocrProvider              String          @default("tesseract") // tesseract, google_vision
+  geolocationProvider      String          @default("browser")  // browser, google_maps
+  apiGoogleVisionKey       String?
+  apiGoogleMapsKey         String?
+  googleVisionCreditsUsed  Int             @default(0)
+  googleVisionCreditsLimit Int             @default(0)
+  createdAt                DateTime        @default(now())
+  updatedAt                DateTime        @updatedAt
+  users                    User[]
+  defaultValues            DefaultValue[]
+  sessions                 SessionRecord[]
+  locations                ClinicLocation[]
+  defaultTemplateSyncs     ClinicDefaultTemplateSync[]
+  geoAccessRequests        GeoAccessRequest[]
+  emailLogs                EmailLog[]
+  // Email integration
+  emailProvider            String          @default("system") // system, smtp, gmail
+  smtpHost                 String?
+  smtpPort                 Int?
+  smtpEmail                String?
+  smtpPassword             String?
+  smtpSecure               Boolean         @default(false)
+  gmailAccessToken         String?
+  gmailRefreshToken        String?
+  gmailEmail               String?
+  gmailTokenExpiry         DateTime?
+}
+
+model User {
+  id               Int               @id @default(autoincrement())
+  email            String?           @unique
+  name             String?
+  passwordHash     String?
+  role             String            @default("staff") // staff, receptionist, doctor, admin, super_admin
+  createdAt        DateTime          @default(now())
+  profileImage     String?
+  verified         Boolean           @default(false)
+  phone            String?           @unique
+  clinicId         String? // null for super_admin
+  clinic           Clinic?           @relation(fields: [clinicId], references: [id], onDelete: Cascade)
+  patients         Patient[]         @relation("DoctorPatients")
+  visits           Visit[]           @relation("DoctorVisits")
+  treatments       Treatment[]       @relation("DoctorTreatments")
+  prescriptions    Prescription[]    @relation("DoctorPrescriptions")
+  customerInvoices CustomerInvoice[] @relation("DoctorInvoices")
+  products         Product[]         @relation("DoctorProducts")
+  categories       Category[]        @relation("DoctorCategories")
+  suppliers        Supplier[]        @relation("DoctorSuppliers")
+  purchaseOrders   PurchaseOrder[]   @relation("DoctorPurchaseOrders")
+  tasksAssignedTo  Task[]            @relation("TasksAssignedTo")
+  tasksAssignedBy  Task[]            @relation("TasksAssignedBy")
+  doctorTasks      Task[]            @relation("DoctorTasks")
+  deviceTokens     DeviceToken[]
+  lastSeenVersion  String?
+}
+
+model DeviceToken {
+  id         Int      @id @default(autoincrement())
+  userId     Int
+  token      String   @unique
+  platform   String   @default("android")
+  isActive   Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  lastSeenAt DateTime @default(now())
+
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([isActive])
+  @@index([platform])
+}
+
+model ApiUsage {
+  service    String   @id
+  usageCount Int      @default(0)
+  updatedAt  DateTime @updatedAt
+}
+
+model Release {
+  id          Int      @id @default(autoincrement())
+  version     String   @unique
+  title       String
+  description String?
+  features    Json     @default("[]")
+  releaseType String   @default("improvement") // major, feature, improvement, bugfix, security
+  platforms   Json     @default("[\"all\"]") // all, windows, android, ios
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  createdBy   Int?
+
+  @@index([isActive])
+  @@index([createdAt])
+}
+
+model PendingClinic {
+  id                       Int      @id @default(autoincrement())
+  clinicId                 String   @unique
+  clinicName               String
+  adminName                String
+  adminEmail               String   @unique
+  adminPhone               String?
+  adminPasswordHash        String
+  address                  String?
+  city                     String?
+  state                    String?
+  iconUrl                  String?
+  prescriptionHeaderUrl    String?
+  prescriptionFooterUrl    String?
+  prescriptionSignatureUrl String?
+  prescriptionWatermarkUrl String?
+  // Location-based access control
+  locationLat              Float?   // Latitude of clinic
+  locationLng              Float?   // Longitude of clinic
+  locationName             String?  // Human-readable address from Google Maps
+  locationRadius           Float    @default(500) // Allowed radius in meters
+  verificationToken        String   @unique
+  createdAt                DateTime @default(now())
+  expiresAt                DateTime
+  status                   String   @default("pending") // pending, approved, expired
+}
+
+model PendingUser {
+  id                 Int      @id @default(autoincrement())
+  email              String   @unique
+  name               String
+  passwordHash       String
+  role               String   @default("staff") // staff, receptionist, doctor, admin
+  verificationToken  String   @unique
+  clinicId           String?  // Optional - for clinic-based staff registration
+  createdAt          DateTime @default(now())
+  expiresAt          DateTime
+  status             String   @default("pending") // pending, approved, expired
+}
+
+model ClinicAccessRequest {
+  id                 Int      @id @default(autoincrement())
+  clinicAdminEmail   String
+  clinicId           String   // 6-digit clinic code
+  clinicName         String?
+  requestType        String   // "access_code" or "full_access"
+  approvalToken      String   @unique
+  userEmail          String?  // Email of user requesting access
+  userName           String?
+  status             String   @default("pending") // pending, approved, rejected
+  createdAt          DateTime @default(now())
+  expiresAt          DateTime
+  approvedAt         DateTime?
+  approvedBy         String?  // Super admin email
+}
+
+model Patient {
+  id                        Int               @id @default(autoincrement())
+  firstName                 String?
+  lastName                  String?
+  fullName                  String?
+  phone                     String?
+  email                     String?
+  date                      DateTime?         @default(now())
+  dob                       DateTime?
+  age                       Int?
+  address                   String?
+  gender                    String?
+  weight                    Float?
+  height                    Float?
+  nextVisit                 DateTime?
+  fatherHusbandGuardianName String?
+  createdAt                 DateTime          @default(now())
+  imageUrl                  String?
+  temperament               String?
+  pulseDiagnosis            String?
+  pulseDiagnosis2           String?
+  majorComplaints           String?
+  historyReports            String?
+  investigations            String?
+  provisionalDiagnosis      String?
+  improvements              String?
+  doctorId                  Int?
+  clinicId                  String?
+  pendingPaymentCents       Int               @default(0)
+  appointments              Appointment[]
+  customerInvoices          CustomerInvoice[]
+  invoices                  Invoice[]
+  visits                    Visit[]
+  tokens                    Token[]
+  doctor                    User?             @relation("DoctorPatients", fields: [doctorId], references: [id])
+
+  @@index([doctorId])
+  @@index([clinicId])
+  @@index([phone])
+  @@index([email])
+}
+
+model Token {
+  id          Int      @id @default(autoincrement())
+  patientId   Int
+  tokenNumber Int
+  date        DateTime
+  status      String   @default("waiting")
+  createdAt   DateTime @default(now())
+  patient     Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
+
+  @@index([date, tokenNumber])
+}
+
+model Appointment {
+  id        Int      @id @default(autoincrement())
+  patientId Int
+  scheduled DateTime
+  notes     String?
+  status    String   @default("scheduled")
+  createdAt DateTime @default(now())
+  patient   Patient  @relation(fields: [patientId], references: [id])
+}
+
+model Invoice {
+  id         Int       @id @default(autoincrement())
+  patientId  Int
+  totalCents Int
+  paid       Boolean   @default(false)
+  dueDate    DateTime?
+  createdAt  DateTime  @default(now())
+  patient    Patient   @relation(fields: [patientId], references: [id])
+}
+
+model Product {
+  id                   Int                   @id @default(autoincrement())
+  name                 String
+  priceRupees          Float // RATE/UNIT - sale price per unit
+  quantity             Int                   @default(0) // INVENTORY (FLOW) - flow inventory (totalPurchased - totalSales)
+  actualInventory      Int? // ACTUAL INVENTORY - actual inventory (calculated)
+  inventoryValue       Float? // INVENTORY VALUE
+  latestUpdate         DateTime?
+  purchasePriceRupees  Float                 @default(0) // PURCHASE PRICE/PACK - purchase price * no. of units
+  purchasePricePerUnit Float? // Internal: purchase price per unit (not displayed in frontend)
+  purchaseValue        Float? // PURCHASE VALUE
+  salesValue           Float? // SALES VALUE
+  totalPurchased       Int                   @default(0) // PURCHASE (FLOW)
+  totalSales           Int                   @default(0) // SALES (FLOW)
+  unit                 String? // UNITS - stored as "number unitType" e.g. "10 TABLETS"
+  latestBatchNumber    String?
+  minStockLevel        Int                   @default(200) // THRESH/IN - threshold
+  categoryId           Int?
+  doctorId             Int?
+  tags                 String[]              @default([])
+  customerInvoiceItems CustomerInvoiceItem[]
+  demandForecasts      DemandForecast[]
+  prescriptions        Prescription[]
+  category             Category?             @relation(fields: [categoryId], references: [id])
+  doctor               User?                 @relation("DoctorProducts", fields: [doctorId], references: [id])
+  batches              ProductBatch[]
+  productOrders        ProductOrder[]
+  purchaseOrderItems   PurchaseOrderItem[]
+  stockTransactions    StockTransaction[]
+  treatmentProducts    TreatmentProduct[]
+  billMappings         BillProductMapping[]
+
+  @@index([doctorId])
+  @@index([name])
+  @@index([categoryId])
+}
+
+model Category {
+  id        Int       @id @default(autoincrement())
+  name      String
+  code      String?
+  createdAt DateTime  @default(now())
+  doctorId  Int?
+  products  Product[]
+  doctor    User?     @relation("DoctorCategories", fields: [doctorId], references: [id])
+
+  @@unique([name, doctorId])
+  @@index([doctorId])
+}
+
+model Treatment {
+  id                Int                @id @default(autoincrement())
+  dosage            String?
+  administration    String?
+  procedure         String?
+  notes             String?
+  keywords          Json?
+  createdAt         DateTime           @default(now())
+  additions         String?
+  diseaseAction     String?
+  organ             String?
+  presentation      String?
+  provDiagnosis     String?
+  speciality        String?
+  imbalance         String?
+  systems           String?
+  pulseDiagnosis    String?
+  srNo              String?
+  timing            String?
+  treatmentPlan     String?
+  planNumber        String?
+  deleted           Boolean?           @default(false)
+  doctorId          Int?
+  prescriptions     Prescription[]
+  treatmentProducts TreatmentProduct[]
+  doctor            User?              @relation("DoctorTreatments", fields: [doctorId], references: [id])
+
+  @@unique([doctorId, provDiagnosis, planNumber])
+  @@index([doctorId])
+  @@index([provDiagnosis])
+  @@index([planNumber])
+  @@index([deleted])
+}
+
+model TreatmentProduct {
+  id             Int       @id @default(autoincrement())
+  treatmentId    Int
+  productId      Int
+  quantity       Int?
+  spy1           String?
+  spy2           String?
+  spy3           String?
+  spy4           String?
+  spy5           String?
+  spy6           String?
+  createdAt      DateTime  @default(now())
+  addition1      String?
+  addition2      String?
+  addition3      String?
+  dosage         String?
+  presentation   String?
+  procedure      String?
+  timing         String?
+  bottleSize     String?
+  administration String?
+  optionProductIds String?   // JSON array of alternative product IDs e.g. ["1","2"]
+  product        Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
+  treatment      Treatment @relation(fields: [treatmentId], references: [id], onDelete: Cascade)
+
+  @@unique([treatmentId, productId])
+  @@index([treatmentId])
+  @@index([productId])
+}
+
+model DefaultProduct {
+  id                  Int       @id @default(autoincrement())
+  name                String
+  priceRupees         Float     @default(0) @map("price_rupees")
+  quantity            Int       @default(0)
+  purchasePriceRupees Float     @default(0) @map("purchase_price_rupees")
+  unit                String?
+  category            String?
+  description         String?
+  minStockLevel       Int       @default(200) @map("min_stock_level")
+  actualInventory     Int?      @map("actual_inventory")
+  inventoryValue      Float?    @map("inventory_value")
+  latestUpdate        DateTime? @map("latest_update")
+  purchaseValue       Float?    @map("purchase_value")
+  salesValue          Float?    @map("sales_value")
+  totalPurchased      Int       @default(0) @map("total_purchased")
+  totalSales          Int       @default(0) @map("total_sales")
+  version             Int       @default(1)
+  createdAt           DateTime  @default(now()) @map("created_at")
+
+  @@index([version])
+  @@map("default_products")
+}
+
+model DefaultTreatment {
+  id             Int      @id @default(autoincrement())
+  name           String?
+  description    String?
+  priceRupees    Float?   @map("price_rupees")
+  duration       Int?
+  planNumber     String?  @map("plan_number")
+  provDiagnosis  String?  @map("prov_diagnosis")
+  speciality     String?
+  imbalance      String?
+  systems        String?
+  organ          String?
+  diseaseAction  String?  @map("disease_action")
+  pulseDiagnosis String?  @map("pulse_diagnosis")
+  treatmentPlan  String?  @map("treatment_plan")
+  notes          String?
+  drn            String?
+  productName    String?  @map("product_name")
+  spy1           String?
+  spy2           String?
+  spy3           String?
+  spy4           String?
+  spy5           String?
+  spy6           String?
+  timing         String?
+  dosage         String?
+  doseQuantity   String?  @map("dose_quantity")
+  doseTiming     String?  @map("dose_timing")
+  dilution       String?
+  addition1      String?
+  addition2      String?
+  addition3      String?
+  procedure      String?
+  presentation   String?
+  bottleSize     String?  @map("bottle_size")
+  quantity       Int?
+  administration String?
+  version        Int      @default(1)
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  @@index([version])
+  @@map("default_treatments")
+}
+
+model ClinicDefaultTemplateSync {
+  id           Int      @id @default(autoincrement())
+  clinicId     String   @map("clinic_id")
+  templateType String   @map("template_type")
+  version      Int
+  populatedAt  DateTime @default(now()) @map("populated_at")
+  clinic       Clinic   @relation(fields: [clinicId], references: [id], onDelete: Cascade)
+
+  @@unique([clinicId, templateType, version])
+  @@index([templateType, version])
+  @@map("clinic_default_template_sync")
+}
+
+model Visit {
+  id                   Int              @id @default(autoincrement())
+  patientId            Int
+  opdNo                String
+  date                 DateTime         @default(now())
+  diagnoses            String?
+  temperament          String?
+  pulseDiagnosis       String?
+  pulseDiagnosis2      String?
+  majorComplaints      String?
+  historyReports       String?
+  investigations       String?
+  provisionalDiagnosis String?
+  improvements         String?
+  specialNote          String?
+  initials             String?
+  dob                  DateTime?
+  age                  Int?
+  address              String?
+  visitNumber          Int?
+  followUpCount        Int?
+  gender               String?
+  phone                String?
+  nextVisit            DateTime?
+  occupation           String?
+  pendingPaymentCents  Int              @default(0)
+  height               Float?
+  weight               Float?
+  procedureAdopted     String?
+  precautions          String?
+  discussion           String?
+  extra                String?
+  amount               Float?
+  discount             Float?
+  payment              Float?
+  balance              Float?
+  consultationFees     Float?           @default(0)
+  helper               String?
+  reportsAttachments   String?          @db.Text
+  patientCopyPdfUrl    String?          @db.Text
+  officeCopyPdfUrl     String?          @db.Text
+  isImported           Boolean          @default(false)
+  createdAt            DateTime         @default(now())
+  doctorId             Int?
+  prescriptions        Prescription[]
+  patient              Patient          @relation(fields: [patientId], references: [id])
+  doctor               User?            @relation("DoctorVisits", fields: [doctorId], references: [id])
+  invoice              CustomerInvoice?
+  tasks                Task[]
+
+  @@index([doctorId])
+}
+
+model Prescription {
+  id                  Int        @id @default(autoincrement())
+  visitId             Int
+  treatmentId         Int?
+  dosage              String?
+  administration      String?
+  quantity            Int        @default(1)
+  taken               Boolean    @default(false)
+  dispensed           Boolean    @default(false)
+  createdAt           DateTime   @default(now())
+  spy1                String?
+  spy2                String?
+  spy3                String?
+  spy4                String?
+  spy5                String?
+  spy6                String?
+  addition1           String?
+  addition2           String?
+  addition3           String?
+  presentation        String?
+  procedure           String?
+  productId           Int?
+  timing              String?
+  bottleSize          String?
+  patientHasMedicine  Boolean    @default(false)
+  discussions         String?
+  selectedDropper     String?
+  selectedLabel       String?
+  includeLabelProduct Boolean    @default(true)
+  includeVrsProduct   Boolean    @default(true)
+  vrsQuantity         Float?     @default(0.125)
+  optionProductIds    String?    // JSON array of alternative product IDs
+  activeOptionIndex   Int?       // -1 or null = main, 0+ = options[index]
+  doctorId            Int?
+  product             Product?   @relation(fields: [productId], references: [id])
+  treatment           Treatment? @relation(fields: [treatmentId], references: [id])
+  visit               Visit      @relation(fields: [visitId], references: [id])
+  doctor              User?      @relation("DoctorPrescriptions", fields: [doctorId], references: [id])
+
+  @@index([doctorId])
+}
+
+model ProductBatch {
+  id                  Int        @id @default(autoincrement())
+  productId           Int
+  sku                 String?
+  quantity            Int
+  purchasePriceRupees Float
+  salePriceRupees     Float
+  expiry              DateTime?
+  createdAt           DateTime   @default(now())
+  product             Product    @relation(fields: [productId], references: [id])
+  purchases           Purchase[]
+  sales               Sale[]
+}
+
+model Purchase {
+  id             Int          @id @default(autoincrement())
+  productBatchId Int
+  quantity       Int
+  totalCents     Int
+  supplier       String?
+  date           DateTime     @default(now())
+  productBatch   ProductBatch @relation(fields: [productBatchId], references: [id])
+}
+
+model Sale {
+  id             Int          @id @default(autoincrement())
+  productBatchId Int
+  quantity       Int
+  totalCents     Int
+  customer       String?
+  date           DateTime     @default(now())
+  productBatch   ProductBatch @relation(fields: [productBatchId], references: [id])
+}
+
+model ProductOrder {
+  id        Int      @id @default(autoincrement())
+  productId Int
+  quantity  Int
+  status    String   @default("pending")
+  orderVia  String?
+  createdAt DateTime @default(now())
+  product   Product  @relation(fields: [productId], references: [id])
+}
+
+model Supplier {
+  id             Int             @id @default(autoincrement())
+  name           String
+  contactPerson  String?
+  email          String?
+  phone          String?
+  address        String?
+  city           String?
+  state          String?
+  pincode        String?
+  gstin          String?
+  pendingBalance Float           @default(0)
+  status         String          @default("active")
+  notes          String?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  doctorId       Int?
+  purchaseOrders PurchaseOrder[]
+  doctor         User?           @relation("DoctorSuppliers", fields: [doctorId], references: [id])
+
+  @@index([doctorId])
+}
+
+model PurchaseOrder {
+  id           Int                 @id @default(autoincrement())
+  poNumber     String              @unique
+  supplierId   Int
+  orderDate    DateTime            @default(now())
+  expectedDate DateTime?
+  receivedDate DateTime?
+  status       String              @default("pending")
+  subtotal     Int                 @default(0)
+  taxAmount    Int                 @default(0)
+  discount     Int                 @default(0)
+  shippingCost Int                 @default(0)
+  totalAmount  Int                 @default(0)
+  paidAmount   Int                 @default(0)
+  notes        String?
+  billUrl      String?
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime            @updatedAt
+  doctorId     Int?
+  supplier     Supplier            @relation(fields: [supplierId], references: [id])
+  doctor       User?               @relation("DoctorPurchaseOrders", fields: [doctorId], references: [id])
+  items        PurchaseOrderItem[]
+
+  @@index([doctorId])
+}
+
+model PurchaseOrderItem {
+  id               Int           @id @default(autoincrement())
+  purchaseOrderId  Int
+  productId        Int
+  quantity         Int
+  unitPrice        Int
+  taxRate          Float         @default(0)
+  discount         Int           @default(0)
+  totalAmount      Int
+  receivedQuantity Int           @default(0)
+  createdAt        DateTime      @default(now())
+  product          Product       @relation(fields: [productId], references: [id])
+  purchaseOrder    PurchaseOrder @relation(fields: [purchaseOrderId], references: [id], onDelete: Cascade)
+}
+
+model CustomerInvoice {
+  id                 Int                   @id @default(autoincrement())
+  invoiceNumber      String                @unique
+  visitId            Int?                  @unique
+  patientId          Int?
+  customerName       String
+  customerEmail      String?
+  customerPhone      String?
+  customerAddress    String?
+  customerGSTIN      String?
+  invoiceDate        DateTime              @default(now())
+  dueDate            DateTime?
+  status             String                @default("unpaid")
+  subtotal           Int                   @default(0)
+  taxAmount          Int                   @default(0)
+  discount           Int                   @default(0)
+  totalAmount        Int                   @default(0)
+  paidAmount         Int                   @default(0)
+  balanceAmount      Int                   @default(0)
+  paymentMethod      String?
+  notes              String?
+  termsAndConditions String?
+  processingFees     Float                 @default(0)
+  createdAt          DateTime              @default(now())
+  updatedAt          DateTime              @updatedAt
+  doctorId           Int?
+  clinicId           String?
+  visit              Visit?                @relation(fields: [visitId], references: [id])
+  patient            Patient?              @relation(fields: [patientId], references: [id])
+  doctor             User?                 @relation("DoctorInvoices", fields: [doctorId], references: [id])
+  items              CustomerInvoiceItem[]
+  payments           Payment[]
+
+  @@index([doctorId])
+  @@index([clinicId])
+}
+
+model CustomerInvoiceItem {
+  id                Int             @id @default(autoincrement())
+  customerInvoiceId Int
+  productId         Int?
+  description       String
+  quantity          Int
+  unitPrice         Float
+  taxRate           Float           @default(0)
+  discount          Int             @default(0)
+  totalAmount       Float
+  createdAt         DateTime        @default(now())
+  customerInvoice   CustomerInvoice @relation(fields: [customerInvoiceId], references: [id], onDelete: Cascade)
+  product           Product?        @relation(fields: [productId], references: [id])
+}
+
+model StockTransaction {
+  id              Int      @id @default(autoincrement())
+  productId       Int
+  transactionType String
+  quantity        Int
+  unitPrice       Float    @default(0)
+  totalValue      Float    @default(0)
+  balanceQuantity Int
+  referenceType   String?
+  referenceId     Int?
+  notes           String?
+  transactionDate DateTime @default(now())
+  performedBy     String?
+  createdAt       DateTime @default(now())
+  product         Product  @relation(fields: [productId], references: [id])
+}
+
+model DemandForecast {
+  id                     Int      @id @default(autoincrement())
+  productId              Int
+  forecastMonth          DateTime
+  predictedDemand        Int
+  actualDemand           Int      @default(0)
+  averageMonthlySales    Float    @default(0)
+  reorderPoint           Int      @default(0)
+  suggestedOrderQuantity Int      @default(0)
+  notes                  String?
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
+  product                Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, forecastMonth])
+}
+
+model Payment {
+  id              Int             @id @default(autoincrement())
+  paymentNumber   String          @unique
+  paymentType     String
+  referenceType   String
+  referenceId     Int
+  amount          Float
+  paymentMethod   String
+  paymentDate     DateTime        @default(now())
+  transactionId   String?
+  notes           String?
+  createdAt       DateTime        @default(now())
+  customerInvoice CustomerInvoice @relation(fields: [referenceId], references: [id])
+}
+
+// Landing Page Content Models
+model LandingHero {
+  id           Int      @id @default(autoincrement())
+  badge        String
+  heading      String
+  headingGreen String   @default("ERP Flow Studios")
+  tagline      String
+  imageUrl     String
+  updatedAt    DateTime @updatedAt
+  updatedBy    String?
+}
+
+model LandingBenefit {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String   @db.Text
+  benefits    Json // Array of {icon, title, description}
+  updatedAt   DateTime @updatedAt
+  updatedBy   String?
+}
+
+model LandingVideo {
+  id        Int      @id @default(autoincrement())
+  embedUrl  String
+  title     String
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model LandingSpecialist {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String   @db.Text
+  quote       String   @db.Text
+  updatedAt   DateTime @updatedAt
+  updatedBy   String?
+}
+
+model AboutContent {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String   @db.Text
+  quote       String   @db.Text
+  updatedAt   DateTime @updatedAt
+  updatedBy   String?
+}
+
+model ServiceCard {
+  id          Int      @id @default(autoincrement())
+  image       String
+  name        String
+  tagline     String
+  info        String
+  description String   @db.Text
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model GalleryImage {
+  id        Int      @id @default(autoincrement())
+  imageUrl  String
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model AchievementImage {
+  id        Int      @id @default(autoincrement())
+  imageUrl  String
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ContactInfo {
+  id        Int      @id @default(autoincrement())
+  address   String   @db.Text
+  phone     String
+  email     String
+  hours     String   @db.Text
+  updatedAt DateTime @updatedAt
+  updatedBy String?
+}
+
+model Task {
+  id            Int       @id @default(autoincrement())
+  title         String
+  description   String?   @db.Text
+  type          String    @default("task")
+  status        String    @default("pending")
+  assignedTo    Int?
+  assignedBy    Int?
+  doctorId      Int?
+  acknowledged  Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  completedAt   DateTime?
+  isSuggested   Boolean   @default(false)
+  expiresAt     DateTime?
+  visitId       Int?
+  attachmentUrl String?   @db.Text
+
+  assignedToUser User?  @relation("TasksAssignedTo", fields: [assignedTo], references: [id], onDelete: Cascade)
+  assignedByUser User?  @relation("TasksAssignedBy", fields: [assignedBy], references: [id], onDelete: Cascade)
+  doctor         User?  @relation("DoctorTasks", fields: [doctorId], references: [id], onDelete: Cascade)
+  visit          Visit? @relation(fields: [visitId], references: [id], onDelete: Cascade)
+
+  @@index([assignedTo])
+  @@index([assignedBy])
+  @@index([status])
+  @@index([isSuggested])
+  @@index([visitId])
+  @@index([doctorId])
+}
+
+model DropdownOption {
+  id        Int      @id @default(autoincrement())
+  category  String // e.g., "gender", "role", "speciality", etc.
+  value     String
+  label     String
+  price     Float? // Optional price field for bottlePricing category
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([category, value])
+  @@index([category])
+}
+
+model BillProductMapping {
+  id              Int      @id @default(autoincrement())
+  billProductName String   @unique
+  mappedProductId Int
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  product         Product  @relation(fields: [mappedProductId], references: [id], onDelete: Cascade)
+
+  @@index([billProductName])
+  @@index([mappedProductId])
+}
+
+model DefaultValue {
+  id        Int      @id @default(autoincrement())
+  clinicId  String?  // Temporarily optional for migration
+  clinic    Clinic?  @relation(fields: [clinicId], references: [id], onDelete: Cascade)
+  page      String
+  label     String   // Display name e.g., "Treatment Plans"
+  values    Json     // JSON object containing all default values for that page
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([clinicId, page])
+  @@index([clinicId])
+  @@index([page])
+}
+
+model PagePermission {
+  id        Int      @id @default(autoincrement())
+  role      String   // admin, doctor, receptionist, staff
+  page      String   // dashboard, patients, prescriptions, etc.
+  canAccess Boolean  @default(false)
+  canWrite  Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([role, page], name: "role_page")
+  @@index([role])
+  @@index([page])
+}
+
+model AuditLog {
+  id         Int      @id @default(autoincrement())
+  action     String   // e.g., "Login", "Logout", "Update Clinic Access Code", etc.
+  category   String   // authentication, user_management, data_import, data_export, admin_settings, clinic_management
+  severity   String   @default("ok") // ok, warning, critical
+  userId     Int
+  userName   String
+  userRole   String
+  clinicId   String?
+  clinicName String?
+  details    Json?    // Additional details about the action
+  ipAddress  String?
+  userAgent  String?  // Browser/device info
+  location   String?  // Geolocation based on IP
+  locationLat Float?  // Latitude from browser geolocation
+  locationLng Float?  // Longitude from browser geolocation
+  timestamp  DateTime @default(now())
+
+  @@index([category])
+  @@index([severity])
+  @@index([userId])
+  @@index([clinicId])
+  @@index([timestamp])
+}
+
+model SessionRecord {
+  id           Int      @id @default(autoincrement())
+  userId       Int
+  clinicId     String?  // Internal clinic cuid
+  sessionToken String   @unique
+  ipAddress    String?
+  userAgent    String?
+  location     String?
+  isActive     Boolean   @default(true)
+  expiresAt    DateTime? // set for temporary (geo bypass) sessions
+  createdAt    DateTime  @default(now())
+  lastActive   DateTime  @default(now())
+  clinic       Clinic?   @relation(fields: [clinicId], references: [id], onDelete: Cascade)
+
+  @@index([clinicId])
+  @@index([userId])
+  @@index([sessionToken])
+  @@index([isActive])
+}
+
+model ClinicLocation {
+  id        String   @id @default(cuid())
+  clinicId  String
+  clinic    Clinic   @relation(fields: [clinicId], references: [id], onDelete: Cascade)
+  name      String?  // human-readable label (from Nominatim reverse geocode)
+  lat       Float
+  lng       Float
+  radius    Float    @default(500)
+  createdAt DateTime @default(now())
+
+  @@index([clinicId])
+}
+
+model GeoAccessRequest {
+  id                String    @id @default(cuid())
+  clinicId          String
+  clinic            Clinic    @relation(fields: [clinicId], references: [id], onDelete: Cascade)
+  receptionistEmail String
+  receptionistName  String?
+  status            String    @default("pending") // pending, approved, denied
+  approvalToken     String    @unique @default(cuid())
+  requestedAt       DateTime  @default(now())
+  approvedAt        DateTime?
+  expiresAt         DateTime? // 30 min after approval
+  approvedBy        String?   // email of approver
+  sessionToken      String?   // auto-login session token set on approval
+
+  @@index([clinicId])
+  @@index([approvalToken])
+  @@index([status])
+}
+
+model EmailLog {
+  id        Int      @id @default(autoincrement())
+  clinicId  String?
+  clinic    Clinic?  @relation(fields: [clinicId], references: [id], onDelete: Cascade)
+  recipient String
+  subject   String
+  status    String   @default("sent") // sent, failed
+  error     String?
+  provider  String   @default("system") // system, smtp, gmail
+  sentAt    DateTime @default(now())
+
+  @@index([clinicId])
+  @@index([sentAt])
+}

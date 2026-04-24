@@ -1,0 +1,13 @@
+name: Supabase Daily Backup (Disabled)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  backup-disabled:
+    if: ${{ false }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Backup workflow disabled
+        run: echo "Supabase backup workflow is intentionally disabled. Use local backup script instead."

@@ -1,0 +1,46 @@
+[
+    {
+        "value": "BM",
+        "label": "BM"
+    },
+    {
+        "value": "AM",
+        "label": "AM"
+    },
+    {
+        "value": "RAPID",
+        "label": "RAPID"
+    },
+    {
+        "value": "SOS",
+        "label": "SOS"
+    },
+    {
+        "value": "HS",
+        "label": "HS"
+    },
+    {
+        "value": "MOR",
+        "label": "MOR"
+    },
+    {
+        "value": "AFN",
+        "label": "AFN"
+    },
+    {
+        "value": "EVE",
+        "label": "EVE"
+    },
+    {
+        "value": "DM",
+        "label": "DM"
+    },
+    {
+        "value": "ALT",
+        "label": "ALT"
+    },
+    {
+        "value": "OR",
+        "label": "OR"
+    }
+]

@@ -1,0 +1,27 @@
+[
+    {
+        "value": "15",
+        "label": "15",
+        "price": 25
+    },
+    {
+        "value": "30",
+        "label": "30",
+        "price": 50
+    },
+    {
+        "value": "60",
+        "label": "60",
+        "price": 100
+    },
+    {
+        "value": "100",
+        "label": "100",
+        "price": 100
+    },
+    {
+        "value": "200",
+        "label": "200",
+        "price": 100
+    }
+]

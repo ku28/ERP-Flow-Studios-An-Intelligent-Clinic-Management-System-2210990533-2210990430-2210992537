@@ -1,0 +1,98 @@
+[
+    {
+        "page": "treatments",
+        "label": "Treatment Plans",
+        "values": {
+            "quantity": 15,
+            "bottleSize": "15",
+            "timing": "AM",
+            "doseQuantity": "10",
+            "doseTiming": "TDS",
+            "dilution": "WATER",
+            "procedure": "ORAL",
+            "presentation": "DRP"
+        }
+    },
+    {
+        "page": "prescriptions",
+        "label": "Prescriptions",
+        "values": {
+            "quantity": 15,
+            "bottleSize": "15",
+            "timing": "AM",
+            "doseQuantity": "10",
+            "doseTiming": "TDS",
+            "dilution": "WATER",
+            "procedure": "ORAL",
+            "presentation": "DRP",
+            "gstRate": 5,
+            "consultationFees": 200
+        }
+    },
+    {
+        "page": "products",
+        "label": "Products",
+        "values": {
+            "minStockLevel": "200"
+        }
+    },
+    {
+        "page": "patients",
+        "label": "Patients",
+        "values": {
+            "fullName": "",
+            "phone": "",
+            "email": "",
+            "dob": "",
+            "age": "",
+            "address": "",
+            "gender": "",
+            "fatherHusbandGuardianName": "",
+            "weight": "",
+            "height": "",
+            "heightFeet": "",
+            "heightInches": ""
+        }
+    },
+    {
+        "page": "suppliers",
+        "label": "Suppliers",
+        "values": {
+            "name": "",
+            "contactPerson": "",
+            "email": "",
+            "phone": "",
+            "address": "",
+            "city": "",
+            "state": "",
+            "pincode": "",
+            "gstin": "",
+            "pendingBalance": "",
+            "notes": ""
+        }
+    },
+    {
+        "page": "visits",
+        "label": "Visits",
+        "values": {
+            "patientId": "",
+            "opdNo": "",
+            "diagnoses": ""
+        }
+    },
+    {
+        "page": "purchaseOrders",
+        "label": "Purchase Orders",
+        "values": {
+            "status": "pending"
+        }
+    },
+    {
+        "page": "invoices",
+        "label": "Invoices & Analytics",
+        "values": {
+            "gstRate": 5,
+            "consultationFees": 200
+        }
+    }
+]

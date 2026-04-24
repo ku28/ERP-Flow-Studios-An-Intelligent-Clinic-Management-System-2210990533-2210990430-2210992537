@@ -1,0 +1,102 @@
+[
+    {
+        "value": "APPLY",
+        "label": "APPLY"
+    },
+    {
+        "value": "MASSAGE",
+        "label": "MASSAGE"
+    },
+    {
+        "value": "HOT COMPRESS",
+        "label": "HOT COMPRESS"
+    },
+    {
+        "value": "COLD COMPRESS",
+        "label": "COLD COMPRESS"
+    },
+    {
+        "value": "ORAL",
+        "label": "ORAL"
+    },
+    {
+        "value": "BATH",
+        "label": "BATH"
+    },
+    {
+        "value": "SPRAY",
+        "label": "SPRAY"
+    },
+    {
+        "value": "STEAM",
+        "label": "STEAM"
+    },
+    {
+        "value": "SITZ BATH",
+        "label": "SITZ BATH"
+    },
+    {
+        "value": "DOUCHE",
+        "label": "DOUCHE"
+    },
+    {
+        "value": "GARGLE",
+        "label": "GARGLE"
+    },
+    {
+        "value": "WASH",
+        "label": "WASH"
+    },
+    {
+        "value": "DRESSING",
+        "label": "DRESSING"
+    },
+    {
+        "value": "SPONGE",
+        "label": "SPONGE"
+    },
+    {
+        "value": "POUR",
+        "label": "POUR"
+    },
+    {
+        "value": "SPRINKLE",
+        "label": "SPRINKLE"
+    },
+    {
+        "value": "RUB",
+        "label": "RUB"
+    },
+    {
+        "value": "COLD BATH",
+        "label": "COLD BATH"
+    },
+    {
+        "value": "NEBULISE",
+        "label": "NEBULISE"
+    },
+    {
+        "value": "SMELL",
+        "label": "SMELL"
+    },
+    {
+        "value": "INJECTION",
+        "label": "INJECTION"
+    },
+    {
+        "value": "COMPRESS",
+        "label": "COMPRESS"
+    },
+    {
+        "value": "EXTERNAL",
+        "label": "EXTERNAL"
+    },
+    {
+        "value": "SUCK",
+        "label": "SUCK"
+    },
+    {
+        "value": "INSERT",
+        "label": "INSERT"
+    }
+]

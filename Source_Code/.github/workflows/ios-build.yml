@@ -1,0 +1,12 @@
+name: iOS Build Check (Disabled)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-ios-disabled:
+    if: ${{ false }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: iOS workflow disabled
+        run: echo "iOS workflow is intentionally disabled to reduce Actions usage."

@@ -1,0 +1,98 @@
+[
+    {
+        "value": "1/1/1-LVR",
+        "label": "1/1/1-LVR"
+    },
+    {
+        "value": "1/1/2-BM",
+        "label": "1/1/2-BM"
+    },
+    {
+        "value": "1/2/1-VNS",
+        "label": "1/2/1-VNS"
+    },
+    {
+        "value": "1/2/2-ART",
+        "label": "1/2/2-ART"
+    },
+    {
+        "value": "1/2/3-BRN",
+        "label": "1/2/3-BRN"
+    },
+    {
+        "value": "1/2/4-NRVS",
+        "label": "1/2/4-NRVS"
+    },
+    {
+        "value": "1/2/5-HRT",
+        "label": "1/2/5-HRT"
+    },
+    {
+        "value": "1/3/1-LNGS",
+        "label": "1/3/1-LNGS"
+    },
+    {
+        "value": "1/3/2-KNY",
+        "label": "1/3/2-KNY"
+    },
+    {
+        "value": "2/1/1-PTRY",
+        "label": "2/1/1-PTRY"
+    },
+    {
+        "value": "2/1/2-THRD",
+        "label": "2/1/2-THRD"
+    },
+    {
+        "value": "2/1/3-THYM",
+        "label": "2/1/3-THYM"
+    },
+    {
+        "value": "2/1/4-HYTH",
+        "label": "2/1/4-HYTH"
+    },
+    {
+        "value": "2/1/5-RNAL",
+        "label": "2/1/5-RNAL"
+    },
+    {
+        "value": "2/1/6-GNDS",
+        "label": "2/1/6-GNDS"
+    },
+    {
+        "value": "2/1/7-PNCR",
+        "label": "2/1/7-PNCR"
+    },
+    {
+        "value": "2/2/1-LINT",
+        "label": "2/2/1-LINT"
+    },
+    {
+        "value": "2/2/2-SINT",
+        "label": "2/2/2-SINT"
+    },
+    {
+        "value": "2/2/3-STCH",
+        "label": "2/2/3-STCH"
+    },
+    {
+        "value": "2/2/4-OEPH",
+        "label": "2/2/4-OEPH"
+    },
+    {
+        "value": "2/2/5-ORAL",
+        "label": "2/2/5-ORAL"
+    },
+    {
+        "value": "2/2/6-BILR",
+        "label": "2/2/6-BILR"
+    },
+    {
+        "value": "2/3/1-KUB",
+        "label": "2/3/1-KUB"
+    },
+    {
+        "value": "2/3/2-SCRN",
+        "label": "2/3/2-SCRN"
+    }
+]

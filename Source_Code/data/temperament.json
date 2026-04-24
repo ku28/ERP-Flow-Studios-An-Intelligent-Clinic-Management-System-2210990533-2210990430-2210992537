@@ -1,0 +1,27 @@
+[
+    {
+        "value": "",
+        "label": "Select temperament",
+        "description": ""
+    },
+    {
+        "value": "LYM-S1/JUN",
+        "label": "LYM-S1/JUN",
+        "description": "Lymphatic temperament - Spring season. Characterized by coolness and moisture, associated with increased lymphatic activity."
+    },
+    {
+        "value": "SANG-A3/DEC",
+        "label": "SANG-A3/DEC",
+        "description": "Sanguine temperament - Autumn/December. Warm and moist nature, associated with blood dominance and cheerful disposition."
+    },
+    {
+        "value": "BIL-S5/SUM",
+        "label": "BIL-S5/SUM",
+        "description": "Bilious temperament - Summer season. Hot and dry nature, associated with yellow bile dominance and active metabolism."
+    },
+    {
+        "value": "NER-F1/WIN",
+        "label": "NER-F1/WIN",
+        "description": "Nervous temperament - Winter season. Cold and dry nature, associated with black bile dominance and melancholic tendencies."
+    }
+]

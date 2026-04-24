@@ -1,0 +1,58 @@
+[
+    {
+        "value": "WATER",
+        "label": "WATER"
+    },
+    {
+        "value": "DOT",
+        "label": "DOT"
+    },
+    {
+        "value": "LW WATER",
+        "label": "LW WATER"
+    },
+    {
+        "value": "HOT WATER",
+        "label": "HOT WATER"
+    },
+    {
+        "value": "HOT BEV",
+        "label": "HOT BEV"
+    },
+    {
+        "value": "HOT MILK",
+        "label": "HOT MILK"
+    },
+    {
+        "value": "HOT TEA",
+        "label": "HOT TEA"
+    },
+    {
+        "value": "GREEN TEA",
+        "label": "GREEN TEA"
+    },
+    {
+        "value": "CHILLED WATER",
+        "label": "CHILLED WATER"
+    },
+    {
+        "value": "L'L WATER",
+        "label": "L'L WATER"
+    },
+    {
+        "value": "SOUP",
+        "label": "SOUP"
+    },
+    {
+        "value": "ICE",
+        "label": "ICE"
+    },
+    {
+        "value": "SAND",
+        "label": "SAND"
+    },
+    {
+        "value": "OIL",
+        "label": "OIL"
+    }
+]
