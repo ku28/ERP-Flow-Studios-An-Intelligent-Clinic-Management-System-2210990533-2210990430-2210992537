@@ -1,4 +1,4 @@
-# ERP Flow Studios — Healthcare Management System
+# ERP Flow Studios — An Intelligent Clinic Management System
 
 > **Version 2.7.0** · Full-stack clinic ERP · Web + Android + iOS + Desktop
 
