@@ -1,3 +1,15 @@
+## Submission Details
+
+- Names with Roll Numbers: Kushagra Juneja (2210990533), Janvi Jain (2210990430), Vishal Raj (2210992537)
+- Project Title: ERP Flow Studios - An Intelligent Clinic Management System
+- Project Type: Copyright
+- Team Details: Kushagra Juneja (2210990533), Janvi Jain (2210990430), Vishal Raj (2210992537)
+- Submission Status: Waiting
+
+## Status Screenshot
+
+![Submission Status Screenshot](ERP%20Flow%20Studios%20-%20An%20IntelligentClinic%20Management%20System%20(2210990533,%202210992537,%202210990430)/IPR_Document/Status_Screenshot.png)
+
 # ERP Flow Studios — An Intelligent Clinic Management System
 
 > **Version 2.7.0** · Full-stack clinic ERP · Web + Android + iOS + Desktop
