@@ -8,7 +8,7 @@
 
 ## Status Screenshot
 
-![Submission Status Screenshot](ERP%20Flow%20Studios%20-%20An%20IntelligentClinic%20Management%20System%20(2210990533,%202210992537,%202210990430)/IPR_Document/Status_Screenshot.png)
+![Submission Status Screenshot](IPR_Document/Status_Screenshot.png)
 
 # ERP Flow Studios — An Intelligent Clinic Management System
 
